@@ -148,7 +148,7 @@ export function Game({ settingsData, updateSettings }: GameProps) {
           </button>
         )}
         <img
-          className={`pointer-events-none max-h-100 m-auto transition-transform duration-700 ease-in dark:invert ${
+          className={`pointer-events-none max-h-100 m-auto transition-transform duration-700 ease-in ${
             hideImageMode && !gameEnded ? "h-0" : "h-full"
           }`}
           alt="municipality to guess"
