@@ -2,7 +2,6 @@ import { DateTime } from "luxon";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import seedrandom from "seedrandom";
 import {
-  areas,
   bigEnoughCountriesWithImage,
   countriesWithImage,
   Country,
@@ -105,10 +104,6 @@ function getCountry(dayString: string) {
           seedrandom.alea(pickingDateString)() * countrySelection.length
         )
       ];
-
-    if (areas[pickedCountry.code] < smallCountryLimit) {
-      smallCountryCooldown = 7;
-    }
 
     pickingDate = pickingDate.plus({ day: 1 });
   } while (pickingDate <= currentDayDate);
