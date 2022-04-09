@@ -34,7 +34,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "echo 'kommunle.se' > ./build/CNAME && gh-pages -d build -e docs -b main -m 'Updates to gh-pages'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
