@@ -142,7 +142,7 @@ function App({
                 <div className="w-max">{t(`support.${country.code}`)}</div>
               </a>
             ) : (
-              "That's nice!"
+              "Me too!"
             )}
           </footer>
         </div>
