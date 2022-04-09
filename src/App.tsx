@@ -142,19 +142,7 @@ function App({
                 <div className="w-max">{t(`support.${country.code}`)}</div>
               </a>
             ) : (
-              <a
-                className="underline pl-1"
-                href="https://www.ko-fi.com/teuteuf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="w-max">
-                  <Twemoji
-                    text={t("buyMeACoffee")}
-                    options={{ className: "inline-block" }}
-                  />
-                </div>
-              </a>
+              "That's nice!"
             )}
           </footer>
         </div>
@@ -164,5 +152,5 @@ function App({
 }
 
 export default withServiceWorkerUpdater(App, {
-  persistenceService: new LocalStoragePersistenceService("worldle"),
+  persistenceService: new LocalStoragePersistenceService("kommunle"),
 });

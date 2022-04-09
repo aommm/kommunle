@@ -5,12 +5,12 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      placeholder: "Country, territory...",
+      placeholder: "Municipality",
       guess: "Guess",
       share: "Share",
       showOnGoogleMaps: "👀 on Google Maps",
       welldone: "Well done!",
-      unknownCountry: "Unknown country!",
+      unknownCountry: "Unknown municipality!",
       copy: "Copied results to clipboard",
       showCountry: "🗺️ Show map!",
       cancelRotation: "🌀 Cancel rotation",
@@ -20,8 +20,8 @@ const resources = {
         theme: "Theme",
         difficultyModifiers: "Difficulty modifiers",
         startingNextDay: "Starting the next day!",
-        noImageMode: "Hide country image for more of a challenge.",
-        rotationMode: "Randomly rotate country image.",
+        noImageMode: "Hide municipality image for more of a challenge.",
+        rotationMode: "Randomly rotate municipality image.",
       },
       stats: {
         title: "Statistics",
@@ -33,9 +33,9 @@ const resources = {
         guessDistribution: "Guess distribution:",
       },
       install: {
-        title: "Worldle",
+        title: "Kommunle",
         descritpionTitle: "App Install:",
-        description: "Add Worldle to Home Screen to play it easily!",
+        description: "Add Kommunle to Home Screen to play it easily!",
         instructionTitle: "Instructions:",
         instructionActionOk: "OK",
         instructionActionCancel: "Cancel",
@@ -87,10 +87,10 @@ const resources = {
         guessDistribution: "Répartitions des victoires:",
       },
       install: {
-        title: "Worldle",
+        title: "Kommunle",
         descritpionTitle: "Installer l'app:",
         description:
-          "Ajouter Worldle sur l'écran d'accueil pour le retrouver plus facilement !",
+          "Ajouter Kommunle sur l'écran d'accueil pour le retrouver plus facilement !",
         instructionTitle: "Instructions :",
         instructionActionOk: "OK",
         instructionActionCancel: "Annuler",

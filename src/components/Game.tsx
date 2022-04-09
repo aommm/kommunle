@@ -151,7 +151,7 @@ export function Game({ settingsData, updateSettings }: GameProps) {
           className={`pointer-events-none max-h-100 m-auto transition-transform duration-700 ease-in dark:invert ${
             hideImageMode && !gameEnded ? "h-0" : "h-full"
           }`}
-          alt="country to guess"
+          alt="municipality to guess"
           src={`images/countries/${country?.code}-satellite.png`}
           style={
             rotationMode && !gameEnded
@@ -207,7 +207,7 @@ export function Game({ settingsData, updateSettings }: GameProps) {
               href={`https://www.google.com/maps?q=${getCountryName(
                 i18n.resolvedLanguage,
                 country
-              )}+${country.code.toUpperCase()}&hl=${i18n.resolvedLanguage}`}
+              )}&hl=${i18n.resolvedLanguage}`}
               target="_blank"
               rel="noopener noreferrer"
             >
