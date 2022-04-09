@@ -19,7 +19,7 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
         <div>
           Guess the <Worldle /> in 6 guesses.
         </div>
-        <div>Each guess must be a valid municipality</div>
+        <div>Each guess must be a valid municipality.</div>
         <div>
           After each guess, you will have the distance, the direction and the
           proximity from your guess and the target municipality.
@@ -32,19 +32,37 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
             rowCount={1}
             guesses={[
               {
-                name: "LAHOLM",
-                direction: "NE",
-                distance: 13_557_000,
+                name: "Laholm",
+                direction: "N",
+                distance: 698_000,
               },
             ]}
             settingsData={settingsData}
           />
           <div className="my-2">
             Your guess <span className="uppercase font-bold">Laholm</span> is{" "}
-            {formatDistance(13557000, settingsData.distanceUnit)} away from the
-            target municipality, the target municipality is in the North-East
-            direction and you have a only 32% of proximity because it&apos;s
-            quite far away!
+            {formatDistance(698000, settingsData.distanceUnit)} away from the
+            target, the target is to the North, and you only have a 53%
+            proximity because it&apos;s quite far away!
+          </div>
+        </div>
+        <div>
+          <Guesses
+            rowCount={1}
+            guesses={[
+              {
+                name: "Gävle",
+                direction: "N",
+                distance: 193_000,
+              },
+            ]}
+            settingsData={settingsData}
+          />
+          <div className="my-2">
+            Your second guess <span className="uppercase font-bold">Gävle</span>{" "}
+            is &nbsp;
+            {formatDistance(193000, settingsData.distanceUnit)} away, to the
+            North and 87%!
           </div>
         </div>
         <div>
@@ -53,25 +71,6 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
             guesses={[
               {
                 name: "Sundsvall",
-                direction: "S",
-                distance: 3_206_000,
-              },
-            ]}
-            settingsData={settingsData}
-          />
-          <div className="my-2">
-            Your second guess{" "}
-            <span className="uppercase font-bold">Sundsvall</span> is getting
-            closer! {formatDistance(3206000, settingsData.distanceUnit)} away,
-            South-East direction and 84%!
-          </div>
-        </div>
-        <div>
-          <Guesses
-            rowCount={1}
-            guesses={[
-              {
-                name: "Skinnskatteberg",
                 direction: "N",
                 distance: 0,
               },
@@ -79,9 +78,8 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
             settingsData={settingsData}
           />
           <div className="my-2">
-            Next guess,{" "}
-            <span className="uppercase font-bold">Skinskatteberg</span>,
-            it&apos;s the municipality to guess! Congrats!{" "}
+            Next guess, <span className="uppercase font-bold">Sundsvall</span>,
+            is the correct municipality! Congrats!{" "}
             <Twemoji text="🎉" options={{ className: "inline-block" }} />
           </div>
         </div>
