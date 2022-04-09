@@ -10,12 +10,7 @@ import {
 import { Guess, loadAllGuesses, saveGuesses } from "../domain/guess";
 
 const forcedCountries: Record<string, string> = {
-  "2022-02-02": "TD",
-  "2022-02-03": "PY",
-  "2022-03-21": "HM",
-  "2022-03-22": "MC",
-  "2022-03-23": "PR",
-  "2022-03-24": "MX",
+  // "2022-02-02": "TD",
 };
 
 export function getDayString(shiftDayCount?: number) {
