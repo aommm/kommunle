@@ -128,6 +128,8 @@ export function Game({ settingsData, updateSettings }: GameProps) {
           type="button"
           onClick={() => setHideImageMode(false)}
         >
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
           <Twemoji
             text={t("showCountry")}
             options={{ className: "inline-block" }}
@@ -180,6 +182,8 @@ export function Game({ settingsData, updateSettings }: GameProps) {
           type="button"
           onClick={() => setRotationMode(false)}
         >
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
           <Twemoji
             text={t("cancelRotation")}
             options={{ className: "inline-block" }}
@@ -211,6 +215,8 @@ export function Game({ settingsData, updateSettings }: GameProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
+              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {/* @ts-ignore */}
               <Twemoji
                 text={t("showOnGoogleMaps")}
                 options={{ className: "inline-block" }}
