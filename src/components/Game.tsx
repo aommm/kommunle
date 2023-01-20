@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 import { SettingsData } from "../hooks/useSettings";
 import { useMode } from "../hooks/useMode";
 import { getDayString, useTodays } from "../hooks/useTodays";
-import { Twemoji } from "@teuteuf/react-emoji-render";
+import { Twemoji } from "react-emoji-render";
 
 const MAX_TRY_COUNT = 6;
 
