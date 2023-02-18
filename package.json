@@ -14,9 +14,11 @@
     "@types/node": "^16.11.19",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "firebase": "^9.17.1",
     "geolib": "^3.3.3",
     "i18next": "^21.6.7",
     "i18next-browser-languagedetector": "^6.1.2",
+    "lodash": "^4.17.21",
     "luxon": "^2.3.0",
     "react": "^17.0.2",
     "react-autosuggest": "^10.1.0",
@@ -59,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "@types/luxon": "^2.0.9",
     "@types/react-autosuggest": "^10.1.5",
     "@types/react-copy-to-clipboard": "^5.0.2",

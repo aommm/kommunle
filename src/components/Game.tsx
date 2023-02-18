@@ -21,6 +21,7 @@ import { SettingsData } from "../hooks/useSettings";
 import { useMode } from "../hooks/useMode";
 import { getDayString, useTodays } from "../hooks/useTodays";
 import { Twemoji } from "react-emoji-render";
+import { Highscore } from "./Highscore";
 
 const MAX_TRY_COUNT = 6;
 
@@ -120,6 +121,8 @@ export function Game({ settingsData, updateSettings }: GameProps) {
     };
   }, [todays, i18n.resolvedLanguage]);
 
+  console.log("guesses:", guesses);
+
   return (
     <div className="flex-grow flex flex-col mx-2">
       {hideImageMode && !gameEnded && (
@@ -206,6 +209,7 @@ export function Game({ settingsData, updateSettings }: GameProps) {
               hideImageMode={hideImageMode}
               rotationMode={rotationMode}
             />
+            <Highscore guesses={guesses} />
             <a
               className="underline w-full text-center block mt-4"
               href={`https://www.google.com/maps?q=${getCountryName(
