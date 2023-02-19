@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Panel } from "./panels/Panel";
 import Modal from "react-modal";
-import { sortBy } from "lodash";
+import { isNumber, sortBy } from "lodash";
 import { Guess } from "../domain/guess";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { HighscoreEntry, Score } from "../domain/score";
 import { useHighscoreDatabase } from "../hooks/useHighscoreDatabase";
 import { getDayString } from "../hooks/useTodays";
+import { Country } from "../domain/countries";
+import { CountryInput } from "./CountryInput";
 
 interface HighscoreProps {
   guesses: Guess[];
+  country: Country;
 }
 
-export function Highscore({ guesses }: HighscoreProps) {
+export function Highscore({ guesses, country }: HighscoreProps) {
   const [username, setUsername] = useLocalStorage("username", "");
   const [userId, setUserId] = useLocalStorage("userId", "");
 
@@ -82,6 +85,8 @@ export function Highscore({ guesses }: HighscoreProps) {
       >
         {!username && (
           <AskUsername
+            score={score}
+            country={country}
             onSubmit={askUsernameSubmit}
             onCancel={askUsernameCancel}
           />
@@ -119,10 +124,12 @@ export function Highscore({ guesses }: HighscoreProps) {
 }
 
 interface AskUsernameProps {
+  score: Score;
+  country: Country;
   onSubmit: (value: string) => void;
   onCancel: () => void;
 }
-function AskUsername({ onSubmit, onCancel }: AskUsernameProps) {
+function AskUsername({ score, country, onSubmit, onCancel }: AskUsernameProps) {
   const [localUsername, setLocalUsername] = useState("");
   const [show, setShow] = useState(true);
 
@@ -138,15 +145,26 @@ function AskUsername({ onSubmit, onCancel }: AskUsernameProps) {
   if (!show) {
     return <div></div>;
   } else {
+    const title = isNumber(score) ? "Well done!" : "Pretty good!";
+    const encouragingPrompt = isNumber(score) ? (
+      <p>
+        You guessed it in <b>{score}</b> tries.
+      </p>
+    ) : (
+      <p>You didn&apos;t guess it.</p>
+    );
     return (
       <Modal isOpen={show} onRequestClose={cancel} ariaHideApp={false}>
         <div className="flex flex-col justify-center items-center content-center">
           <div className="w-full lg:w-1/2 flex flex-col items-center">
-            <h2 className="text-xl font-bold">Well done!</h2>
+            <h2 className="text-xl font-bold">{title}</h2>
             <br />
-            <p>You made it to the high score board!</p>
+            <p>
+              The answer was <b>{country.name}.</b>
+            </p>
+            {encouragingPrompt}
             <br />
-            <p>What is your name?</p>
+            <p>To enter the highscore, enter your name:</p>
             <form onSubmit={save}>
               <input
                 type="text"
