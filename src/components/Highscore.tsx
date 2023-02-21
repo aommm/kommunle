@@ -64,8 +64,10 @@ export function Highscore({ guesses, country }: HighscoreProps) {
     const editable = highscore.userId === userId;
     return { ...highscore, editable };
   });
-  highscoresWithEditable = sortBy(highscoresWithEditable, "score");
-  console.log("yo", highscoresWithEditable[highscoresWithEditable.length - 1]);
+  highscoresWithEditable = sortBy(highscoresWithEditable, (x) =>
+    String(x.score)
+  );
+  console.log("yo", highscoresWithEditable);
 
   // submit score to backend
   useEffect(() => {
