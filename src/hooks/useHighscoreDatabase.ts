@@ -7,10 +7,10 @@ import { getDayString } from "./useTodays";
 const database = getDatabase(app);
 
 const databaseNamespace = "highscores";
-const allHighscoresRef = ref(database, databaseNamespace);
+const allHighscoresRef = (today: string) =>
+  ref(database, databaseNamespace + "/" + today);
 
 interface HighscoreDatabaseEntry {
-  date: string;
   name: string;
   score: Score;
 }
@@ -35,19 +35,16 @@ export function useHighscoreDatabase(): [
   const [highscores, setHighscores] = useState<HighscoreEntry[]>([]);
 
   useEffect(() => {
-    onValue(allHighscoresRef, (snapshot) => {
+    const today = getDayString();
+    onValue(allHighscoresRef(today), (snapshot) => {
       const highscoresDatabase: HighscoresDatabase = snapshot.val();
-      const today = getDayString();
 
       // convert db entry to highscore entry
-      const highscoreEntries = Object.entries(highscoresDatabase)
-        .map(([userId, highscoreDatabaseEntry]) => {
+      const highscoreEntries = Object.entries(highscoresDatabase).map(
+        ([userId, highscoreDatabaseEntry]) => {
           return { ...highscoreDatabaseEntry, userId };
-        })
-        .filter((highscoreEntry) => {
-          // don't show yesterday's entries
-          return highscoreEntry.date === today;
-        });
+        }
+      );
 
       setHighscores(highscoreEntries);
     });
@@ -65,10 +62,9 @@ export function useHighscoreDatabase(): [
     if (existingScore) {
       console.log("there's an existing score for this user, don't update");
     } else {
-      set(ref(database, databaseNamespace + "/" + userId), {
+      set(ref(database, databaseNamespace + "/" + date + "/" + userId), {
         name,
         score,
-        date,
       });
     }
   }
