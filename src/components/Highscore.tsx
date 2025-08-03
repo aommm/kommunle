@@ -64,17 +64,18 @@ export function Highscore({ guesses, country }: HighscoreProps) {
     const editable = highscore.userId === userId;
     return { ...highscore, editable };
   });
-  highscoresWithEditable = sortBy(highscoresWithEditable, (x) =>
-    String(x.score)
-  );
+  highscoresWithEditable = sortBy(highscoresWithEditable, (x) => {
+    return String(x.score) + x.datetime;
+  });
   console.log("yo", highscoresWithEditable);
 
   // submit score to backend
   useEffect(() => {
     const today = getDayString();
+    const now = new Date().toISOString();
     if (userId && username && score && today) {
-      console.log(`Saving score for ${username}: ${score}`);
-      setHighscoreForUser(userId, username, score, today);
+      console.log(`Saving score for ${username}: ${score} at time ${now}`);
+      setHighscoreForUser(userId, username, score, today, now);
     }
   }, [userId, username, score, setHighscoreForUser]);
 

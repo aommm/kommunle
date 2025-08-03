@@ -13,6 +13,7 @@ const allHighscoresRef = (today: string) =>
 interface HighscoreDatabaseEntry {
   name: string;
   score: Score;
+  datetime: string;
 }
 type HighscoresDatabase = {
   [k: string]: HighscoreDatabaseEntry;
@@ -29,7 +30,8 @@ export function useHighscoreDatabase(): [
     userId: string,
     name: string,
     score: Score,
-    date: string
+    date: string,
+    datetime: string
   ) => void
 ] {
   const [highscores, setHighscores] = useState<HighscoreEntry[]>([]);
@@ -54,7 +56,8 @@ export function useHighscoreDatabase(): [
     userId: string,
     name: string,
     score: Score,
-    date: string
+    date: string,
+    datetime: string
   ) {
     const existingScore = highscores.find(
       (highscore) => highscore.userId === userId
@@ -65,6 +68,7 @@ export function useHighscoreDatabase(): [
       set(ref(database, databaseNamespace + "/" + date + "/" + userId), {
         name,
         score,
+        datetime,
       });
     }
   }
