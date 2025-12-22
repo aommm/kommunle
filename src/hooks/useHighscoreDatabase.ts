@@ -1,4 +1,4 @@
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import { getDatabase, onValue, ref, runTransaction } from "firebase/database";
 import { useEffect, useState } from "react";
 import { app } from "../domain/firebase";
 import { HighscoreEntry, Score } from "../domain/score";
@@ -59,18 +59,22 @@ export function useHighscoreDatabase(): [
     date: string,
     datetime: string
   ) {
-    const existingScore = highscores.find(
-      (highscore) => highscore.userId === userId
+    runTransaction(
+      ref(database, databaseNamespace + "/" + date + "/" + userId),
+      (currentData) => {
+        if (currentData === null) {
+          console.log(`Saving score for ${name}: ${score} at time ${datetime}`);
+          return {
+            name,
+            score,
+            datetime,
+          };
+        } else {
+          console.log("there's an existing score for this user, don't update");
+          return;
+        }
+      }
     );
-    if (existingScore) {
-      console.log("there's an existing score for this user, don't update");
-    } else {
-      set(ref(database, databaseNamespace + "/" + date + "/" + userId), {
-        name,
-        score,
-        datetime,
-      });
-    }
   }
 
   return [highscores, setHighscoreForUser];

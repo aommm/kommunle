@@ -74,7 +74,6 @@ export function Highscore({ guesses, country }: HighscoreProps) {
     const today = getDayString();
     const now = new Date().toISOString();
     if (userId && username && score && today) {
-      console.log(`Saving score for ${username}: ${score} at time ${now}`);
       setHighscoreForUser(userId, username, score, today, now);
     }
   }, [userId, username, score, setHighscoreForUser]);
