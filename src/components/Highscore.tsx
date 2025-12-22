@@ -116,7 +116,7 @@ export function Highscore({ guesses, country }: HighscoreProps) {
         </div>
       </Panel>
       <button
-        className="rounded font-bold border-2 p-1 uppercase bg-green-600 hover:bg-green-500 active:bg-green-700 text-white w-full"
+        className="rounded font-bold border-2 p-1 uppercase bg-red-600 hover:bg-red-500 active:bg-red-700 text-white w-full"
         onClick={highscoreClicked}
       >
         High score
