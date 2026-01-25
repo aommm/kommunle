@@ -108,9 +108,7 @@ function App({
               <InstallButton pwaInstall={pwaInstall} />
             )}
             <h1 className="text-4xl font-bold uppercase tracking-wide text-center my-1 flex-auto">
-              <span className="text-red-600">Kommun</span>
-              <span className="text-green-600">l</span>
-              <span className="text-red-600">e</span>
+              Kommun<span className="text-green-600">l</span>e
             </h1>
             <button
               className="ml-3 text-xl"
