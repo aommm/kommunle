@@ -110,9 +110,7 @@ function getCountry(dayString: string) {
     pickedCountry =
       forcedCountry ??
       countrySelection[
-        Math.floor(
-          seedrandom.alea(seed)() * countrySelection.length
-        )
+        Math.floor(seedrandom.alea(seed)() * countrySelection.length)
       ];
 
     pickingDate = pickingDate.plus({ day: 1 });
