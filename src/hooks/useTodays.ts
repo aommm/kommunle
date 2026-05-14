@@ -70,7 +70,9 @@ export function useTodays(dayString: string): [
 
 function getCountry(dayString: string) {
   const currentDayDate = DateTime.fromFormat(dayString, "yyyy-MM-dd");
-  let pickingDate = DateTime.fromFormat("2022-03-21", "yyyy-MM-dd");
+  const epochDate = DateTime.fromFormat("2022-03-21", "yyyy-MM-dd");
+  const cutoverDate = DateTime.fromFormat("2026-05-15", "yyyy-MM-dd");
+  let pickingDate = epochDate;
   let smallCountryCooldown = 0;
   let pickedCountry: Country | null = null;
 
@@ -78,6 +80,19 @@ function getCountry(dayString: string) {
     smallCountryCooldown--;
 
     const pickingDateString = pickingDate.toFormat("yyyy-MM-dd");
+
+    // Before 2026-05-15, the seed was the date string (e.g. "2026-05-14").
+    // Consecutive date strings differ only in their last byte, which causes
+    // seedrandom.alea to produce correlated outputs — enough to land on the
+    // same municipality index two days in a row (confirmed bug: Simrishamn×2,
+    // Sigtuna×2 in May 2026). From 2026-05-15 onwards we use the integer day
+    // offset from the epoch instead, which eliminates the structural correlation.
+    let seed: string;
+    if (pickingDate < cutoverDate) {
+      seed = pickingDateString;
+    } else {
+      seed = pickingDate.diff(epochDate, "days").days.toString();
+    }
 
     const forcedCountryCode = forcedCountries[dayString];
     const forcedCountry =
@@ -96,7 +111,7 @@ function getCountry(dayString: string) {
       forcedCountry ??
       countrySelection[
         Math.floor(
-          seedrandom.alea(pickingDateString)() * countrySelection.length
+          seedrandom.alea(seed)() * countrySelection.length
         )
       ];
 
