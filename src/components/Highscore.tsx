@@ -6,16 +6,16 @@ import { Guess } from "../domain/guess";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { HighscoreEntry, Score } from "../domain/score";
 import { useHighscoreDatabase } from "../hooks/useHighscoreDatabase";
-import { getDayString } from "../hooks/useTodays";
 import { Country } from "../domain/countries";
 import { CountryInput } from "./CountryInput";
 
 interface HighscoreProps {
   guesses: Guess[];
   country: Country;
+  dayString: string;
 }
 
-export function Highscore({ guesses, country }: HighscoreProps) {
+export function Highscore({ guesses, country, dayString }: HighscoreProps) {
   const [username, setUsername] = useLocalStorage("username", "");
   const [userId, setUserId] = useLocalStorage("userId", "");
 
@@ -59,7 +59,7 @@ export function Highscore({ guesses, country }: HighscoreProps) {
     setHighscoreOpen(false);
   };
 
-  const [highscores, setHighscoreForUser] = useHighscoreDatabase();
+  const [highscores, setHighscoreForUser] = useHighscoreDatabase(dayString);
   let highscoresWithEditable = highscores.map((highscore) => {
     const editable = highscore.userId === userId;
     return { ...highscore, editable };
@@ -71,12 +71,11 @@ export function Highscore({ guesses, country }: HighscoreProps) {
 
   // submit score to backend
   useEffect(() => {
-    const today = getDayString();
     const now = new Date().toISOString();
-    if (userId && username && score && today) {
-      setHighscoreForUser(userId, username, score, today, now);
+    if (userId && username && score && dayString) {
+      setHighscoreForUser(userId, username, score, now);
     }
-  }, [userId, username, score, setHighscoreForUser]);
+  }, [userId, username, score, dayString, setHighscoreForUser]);
 
   return (
     <div>

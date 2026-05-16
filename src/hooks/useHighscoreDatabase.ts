@@ -1,8 +1,7 @@
 import { getDatabase, onValue, ref, runTransaction } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { app } from "../domain/firebase";
 import { HighscoreEntry, Score } from "../domain/score";
-import { getDayString } from "./useTodays";
 
 const database = getDatabase(app);
 
@@ -20,25 +19,26 @@ type HighscoresDatabase = {
 };
 
 /**
+ * @param dayString - the date to read/write highscores for (yyyy-MM-dd)
  * @returns [highscores, setHighscoreForUser]
- *    highscores: all highscore entries for today
+ *    highscores: all highscore entries for the given day
  *    setHighscoreForUser: add a new highscore entry
  */
-export function useHighscoreDatabase(): [
+export function useHighscoreDatabase(
+  dayString: string
+): [
   highscores: HighscoreEntry[],
   setHighscoreForUser: (
     userId: string,
     name: string,
     score: Score,
-    date: string,
     datetime: string
   ) => void
 ] {
   const [highscores, setHighscores] = useState<HighscoreEntry[]>([]);
 
   useEffect(() => {
-    const today = getDayString();
-    onValue(allHighscoresRef(today), (snapshot) => {
+    onValue(allHighscoresRef(dayString), (snapshot) => {
       const highscoresDatabase: HighscoresDatabase = snapshot.val();
 
       // convert db entry to highscore entry
@@ -50,32 +50,33 @@ export function useHighscoreDatabase(): [
 
       setHighscores(highscoreEntries);
     });
-  }, []);
+  }, [dayString]);
 
-  function setHighscoreForUser(
-    userId: string,
-    name: string,
-    score: Score,
-    date: string,
-    datetime: string
-  ) {
-    runTransaction(
-      ref(database, databaseNamespace + "/" + date + "/" + userId),
-      (currentData) => {
-        if (currentData === null) {
-          console.log(`Saving score for ${name}: ${score} at time ${datetime}`);
-          return {
-            name,
-            score,
-            datetime,
-          };
-        } else {
-          console.log("there's an existing score for this user, don't update");
-          return;
+  const setHighscoreForUser = useCallback(
+    (userId: string, name: string, score: Score, datetime: string) => {
+      runTransaction(
+        ref(database, databaseNamespace + "/" + dayString + "/" + userId),
+        (currentData) => {
+          if (currentData === null) {
+            console.log(
+              `Saving score for ${name}: ${score} at time ${datetime}`
+            );
+            return {
+              name,
+              score,
+              datetime,
+            };
+          } else {
+            console.log(
+              "there's an existing score for this user, don't update"
+            );
+            return;
+          }
         }
-      }
-    );
-  }
+      );
+    },
+    [dayString]
+  );
 
   return [highscores, setHighscoreForUser];
 }

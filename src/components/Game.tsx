@@ -209,7 +209,11 @@ export function Game({ settingsData, updateSettings }: GameProps) {
               hideImageMode={hideImageMode}
               rotationMode={rotationMode}
             />
-            <Highscore guesses={guesses} country={country} />
+            <Highscore
+              guesses={guesses}
+              country={country}
+              dayString={dayString}
+            />
             <a
               className="underline w-full text-center block mt-4"
               href={`https://www.google.com/maps?q=${getCountryName(
